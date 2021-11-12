@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <h1>Bienvenido a la sección de compras</h1>
+    <table>
+        <tr>
+            <th>Orden N°</th>
+            <th>Proveedor</th>
+            <th>Importe total</th>
+            <th>Fecha de emision</th>
+            <th>Fecha de entrega programada</th>
+            <th>Fecha de entrega</th>
+        </tr>
+        <tr>
+            <td>123</td>
+            <td>Lucas Gabriel</td>
+            <td>$354345</td>
+            <td>19/10/2021</td>
+            <td>29/10/2021</td>
+            <td>6/11/2021</td>
+        </tr>
+    </table>
+    <footer>
+        <a href="../">atras</a>
+    </footer>
+</body>
+</html>

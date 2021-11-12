@@ -1,0 +1,20 @@
+table, th{
+    border: black 1px solid;
+    border-collapse: collapse
+}
+ th, td{
+     border: black 1px solid;
+ }
+ ul li {
+     list-style: none;
+     display: inline-block;
+     padding: 10px;
+     background-color: goldenrod;
+     border-radius: 1em;
+     min-width: 100px;
+     text-align: center;
+ }
+ ul li a {
+     text-decoration: none;
+     
+ }
