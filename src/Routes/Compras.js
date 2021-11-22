@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const app = express()
 
-const Proveedor = require('../Models/Proveedor.js')
+const Proveedor = require('../Models/Proveedores.js')
 
 router.get('/', async (req, res) => {
     try{

@@ -1,4 +1,7 @@
 <h1>Proveedores encontrados</h1>
-<pre>
-    {{Proveedores}}
-</pre>
+{{valor}}
+<table>
+    {{#each lista}}
+      <tr><td>{{this.nombre}}</td><td>{{this.email}}</td></tr>
+    {{/each}}
+</table>

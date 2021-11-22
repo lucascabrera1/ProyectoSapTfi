@@ -8,3 +8,6 @@ mongoose.connect('mongodb://localhost:27017/miprimerdbenmongodb', {
 })
 .then(db => console.log('Conectado exitosamente a la base de datos'))
 .catch((err) => console.error("El error fue que "+ err))
+
+const db = mongoose.connection;
+module.exports = db;

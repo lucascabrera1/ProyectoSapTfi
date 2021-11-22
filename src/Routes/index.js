@@ -1,19 +1,16 @@
 const express = require('express')
-const router = express.Router()
-
-import { RecuperarProveedores} from 'ControladoraOc.js'
+const RecuperarProveedores = require ('../controllers/ControladoraOC')
+const router = express()
 
 router.get('/', (req, res) => {
-    res.render('main')
+    res.render('../main')
 })
 
 
 router.get('/compras', (req, res)=>{
-    res.render('compras')
+    res.render('../compras')
 })
 
-router.get('/proveedores', (req, res) => {
-    res.render('proveedores', RecuperarProveedores())
-})
+router.get('/proveedores', RecuperarProveedores)
 
 module.exports = router;
