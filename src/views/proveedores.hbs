@@ -1,7 +1,16 @@
 <h1>Proveedores encontrados</h1>
 {{valor}}
 <table>
+  <td class="primer">Identificador</td>
+  <td class="primer">Nombre y apellido</td>
+  <td class="primer">Correo electrónico</td>
+  <td class="primer">Dirección</td>
     {{#each lista}}
-      <tr><td>{{this.nombre}}</td><td>{{this.email}}</td></tr>
+      <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.nombre}}</td>
+        <td>{{this.email}}</td>
+        <td>{{this.direccion}}</td>
+      </tr>
     {{/each}}
 </table>
