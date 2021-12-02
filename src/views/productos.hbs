@@ -1,0 +1,29 @@
+<h1>Productos encontrados</h1>
+{{valor}}
+<table>
+  <td class="primer">Identificador</td>
+  <td class="primer">Descripción</td>
+  <td class="primer">Precio de Compra</td>
+  <td class="primer">Precio de Venta</td>
+  <td class="primer">Punto de Pedido</td>
+  <td class="primer">Stock Disponible</td>
+  <td class="primer">Marca</td>
+  <td class="primer">Categoría</td>
+  <td class="primer">Proveedor Designado</td>
+    {{#each lista}}
+      <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.descripcion}}</td>
+        <td>${{this.preciodecompra}}</td>
+        <td>${{this.preciodeventa}}</td>
+        <td>{{this.puntopedido}}</td>
+        <td>{{this.stock}}</td>
+        <td>{{this.marca}}</td>
+        <td>{{this.categoria}}</td>
+        <td>{{this.proveedor}}</td>
+      </tr>
+    {{/each}}
+</table>
+<button onclick="">Agregar</button>
+<button onclick="">Modificar</button>
+<button onclick="">Eliminar</button>

@@ -1,5 +1,5 @@
 const express = require('express')
-const RecuperarProveedores = require ('../controllers/ControladoraOC')
+var coc = require ('../controllers/ControladoraOC')
 const router = express()
 
 router.get('/', (req, res) => {
@@ -11,6 +11,9 @@ router.get('/compras', (req, res)=>{
     res.render('../compras')
 })
 
-router.get('/proveedores', RecuperarProveedores)
+router.get('/proveedores', coc.RecuperarProveedores)
+
+router.get('/productos', coc.RecuperarProductos)
+
 
 module.exports = router;
