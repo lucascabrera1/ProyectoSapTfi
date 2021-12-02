@@ -26,7 +26,7 @@ const RecuperarProductos = (req, res) => {
             descripcion: prod.descripcion,
             preciodecompra: prod.preciodecompra,
             preciodeventa: prod.preciodeventa,
-            puntopedido : prod.puntodepedido,
+            puntopedido : prod.puntopedido,
             stock: prod.stock,
             marca: prod.marca,
             proveedor: prod.proveedor,
