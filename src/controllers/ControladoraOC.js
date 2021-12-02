@@ -15,7 +15,7 @@ const RecuperarProveedores = (req, res) => {
             direccion : prov.direccion
         }})
         console.log(lista);
-        res.render("../proveedores", {lista : lista })
+        res.render("./proveedores", {lista : lista })
     });
 }
 
@@ -33,7 +33,7 @@ const RecuperarProductos = (req, res) => {
             categoria: prod.categoria
         }})
         console.log(lista[1])
-        res.render("../productos", {lista: lista})
+        res.render("./productos", {lista: lista})
     })
 }
 

@@ -16,7 +16,7 @@ function main() {
     //settings
     app.set('port', process.env.port || 3000)
     //app.set('views', path.join(__dirname, 'views'))
-    app.set('views', path.join(__dirname, ''))
+    app.set('views', path.join(__dirname, 'views'))
     app.engine('.hbs', exphbs({
         defaultLayout: "index",
         layoutsDir: path.join(app.get('views'), "layouts"),
@@ -50,9 +50,9 @@ function main() {
 
     //routes
 
-    app.use(require('../Routes/index.js'))
-    app.use(require('../Routes/OrdenesDeCompra.js'))
-    app.use(require('../Routes/Compras.js'))
+    app.use(require('./Routes/index.js'))
+    app.use(require('./Routes/OrdenesDeCompra.js'))
+    app.use(require('./Routes/Compras.js'))
 
 
 

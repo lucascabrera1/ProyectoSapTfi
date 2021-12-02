@@ -3,12 +3,12 @@ var coc = require ('../controllers/ControladoraOC')
 const router = express()
 
 router.get('/', (req, res) => {
-    res.render('../main')
+    res.render('./main')
 })
 
 
 router.get('/compras', (req, res)=>{
-    res.render('../compras')
+    res.render('./compras')
 })
 
 router.get('/proveedores', coc.RecuperarProveedores)
