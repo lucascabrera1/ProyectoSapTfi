@@ -5,6 +5,10 @@ const AgregarProducto = (req, res) => {
     
 }
 
+const agregarProveedor = (req, res) => {
+    res.render("./proveedor", {title : "Alta de Proveedor"});
+}
+
 const RecuperarProveedores = (req, res) => {
     //const proveedores = await Proveedor.find();
     Proveedor.find(function(err, proveedores) {
@@ -17,6 +21,30 @@ const RecuperarProveedores = (req, res) => {
         console.log(lista);
         res.render("./proveedores", {lista : lista })
     });
+}
+
+const validateProveedor = (body) => {
+    if (body.razon_social == null || body.razon_social == '')
+        return "Razón Social es requerida";
+}
+
+const guardarProveedor = async (req, res) => {
+    let msg = validateProveedor(req.body);
+    if (msg) {
+        res.status(400).send(msg);
+    } else {
+        let proveedor = new Proveedor({
+            razon_social: req.body.razon_social,
+            direccion: req.body.direccion,
+            email: req.body.email 
+        });
+        let prov = await proveedor.save();
+        //if (err)
+        //  res.status(500).send(err);
+        console.log(`Se dio de alta el proveedor: ${prov}`);
+        res.status(200).send(prov);
+        
+    }
 }
 
 const RecuperarProductos = (req, res) => {
@@ -38,4 +66,4 @@ const RecuperarProductos = (req, res) => {
 }
 
 
-module.exports = {RecuperarProveedores, RecuperarProductos}
+module.exports = {RecuperarProveedores, RecuperarProductos, agregarProveedor, guardarProveedor}

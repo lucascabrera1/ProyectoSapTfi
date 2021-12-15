@@ -12,6 +12,8 @@ router.get('/compras', (req, res)=>{
 })
 
 router.get('/proveedores', coc.RecuperarProveedores)
+router.post('/proveedores/save', coc.guardarProveedor)
+router.get('/proveedores/agregar', coc.agregarProveedor)
 
 router.get('/productos', coc.RecuperarProductos)
 

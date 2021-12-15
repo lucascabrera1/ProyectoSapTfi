@@ -2,10 +2,12 @@ const express = require('express')
 const path = require ('path')
 const exphbs = require('express-handlebars')
 const methodOverride = require ('method-override')
+const bodyParser = require("body-parser")
 const session = require ('express-session')
 //initializing
 
 const app = express()
+app.use(bodyParser.json());
 const db = require('./database')
 
 db.once('open', function() {

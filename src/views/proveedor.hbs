@@ -1,0 +1,43 @@
+<h1>{{title}}</h1>
+<form style="display: grid;width:50%">
+    <label>Razón Social</label>
+    <input type="text" name="razon_social" id="razon_social" />
+    <br/>
+    <label>Dirección</label>
+    <input type="text" name="direccion" id="direccion"/>
+    <br/>
+    <label>Email</label>
+    <input type="email" name="email" id="email"/>
+</form>
+<button onclick="guardar()">Guardar</button>
+<button onclick="cancelar()">Cancelar</button>
+<script type="text/javascript">
+    function cancelar() {
+        window.location = "/proveedores";
+    }
+    function guardar() {
+        let data = {
+            "razon_social":document.getElementById("razon_social").value,
+            "direccion":document.getElementById("direccion").value,
+            "email":document.getElementById("email").value
+        }
+    
+        fetch('/proveedores/save', {
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(resp => {
+            alert("El proveedor ha sido dado de alta con id "+resp._id);
+            setTimeout(function() {
+                window.location = "/proveedores";
+            }, 3000);
+        })
+        .catch(function(error) {
+            console.log('Hubo un problema con la petición Fetch:' + error.message);
+        });
+    }
+</script>
