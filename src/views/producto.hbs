@@ -24,31 +24,37 @@
 <script>
     function confirmar(){
         let data = {
-            "descripcion" = document.getElementById("descripcion").value,
-            "preciodecompra" = document.getElementById("preciocompra").value,
-            "precioventa" = document.getElementById("precioventa").value,
-            "puntopedido" = document.getElementById("puntopedido").value,
-            "marca" = document.getElementById("marca").value,
-            "proveedor" = document.getElementById("proveedor").value,
-            "categoria" = document.getElementById("categoria").value
+            "descripcion" : document.getElementById("descripcion").value,
+            "preciodecompra" : document.getElementById("preciocompra").value,
+            "preciodeventa" : document.getElementById("precioventa").value,
+            "puntopedido" : document.getElementById("puntopedido").value,
+            "marca" : document.getElementById("marca").value,
+            "proveedor" : document.getElementById("proveedor").value,
+            "categoria" : document.getElementById("categoria").value
         }
     
-        fetch( 'productos/save', {
+        fetch( '/productos/save', {
             method: 'post',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(data)
-        }).then(response => response.json())
+        }).then(async response => {
+            if (!response.ok) {
+                let err = await response.text();
+                throw new Error(err);
+            }
+            return response.json();
+        })
 
         .then(resp => {
             alert("El producto ha sido dado de alta con el id" + resp._id)
             setTimeout(function(){
-                window.location = './productos',
+                window.location = '/productos';
             }, 3500)
         })
 
-        .catch(function(error){
-            console.log("hubo un problema con la petición Fetch " + error.message)
-        })
+        .catch((error) => {
+            alert(error.message)
+        });
     }
 
     function cancelar(){
