@@ -1,10 +1,7 @@
 const Proveedor = require ('../Models/Proveedores')
 const Producto = require ('../Models/Productos')
 
-const AgregarProducto = (req, res) => {
-    
-}
-
+//PROVEEDOR
 const agregarProveedor = (req, res) => {
     res.render("./proveedor", {title : "Alta de Proveedor"});
 }
@@ -47,6 +44,52 @@ const guardarProveedor = async (req, res) => {
     }
 }
 
+//PRODUCTO
+
+const AgregarProducto = (req, res) => {
+    res.render("./producto", {title: "Alta de Producto"})
+}
+
+const ValidarProducto = (body) => {
+    if (body.descripcion == '' || body.descripcion == null){
+        alert("La descripción del producto no puede ser nula")
+        return false
+    }
+    else if (body.preciodecompra == '' || body.preciodecompra == null){
+        alert("el precio de compra no puede ser nulo")
+        return false
+    }
+    else if (body.preciodeventa == '' || body.preciodeventa == null){
+        alert("el precio de venta no puede ser nulo")
+        return false
+    }
+    else if (body.puntopedido == '' || body.puntopedido == null){
+        alert("el punto de pedido no puede ser nulo")
+        return false
+    }
+    else return true
+}
+
+const guardarProducto = async (req, res) => {
+    let msg = ValidarProducto(req.body)
+    if (msg){
+        res.status(400).send(msg)
+    }else{
+        let producto = new Producto({
+            descripcion : req.body.descripcion,
+            preciodecompra : req.body.preciodecompra,
+            preciodeventa : req.body.preciodeventa,
+            puntopedido : req.body.puntopedido,
+            marca : req.body.marca,
+            proveedor : req.body.proveedor,
+            categoria : req.body.categoria
+        });
+        let prod = await producto.save
+        console.log(`se dio de alta el producto ${prod}`)
+        res.status(200).send(prod)
+    }
+}
+
 const RecuperarProductos = (req, res) => {
     Producto.find(function(err, productos){
         let lista = productos.map(prod=> {return {
@@ -60,10 +103,13 @@ const RecuperarProductos = (req, res) => {
             proveedor: prod.proveedor,
             categoria: prod.categoria
         }})
-        console.log(lista[1])
+        console.log(lista[7])
         res.render("./productos", {lista: lista})
     })
 }
 
 
-module.exports = {RecuperarProveedores, RecuperarProductos, agregarProveedor, guardarProveedor}
+module.exports = {RecuperarProveedores, RecuperarProductos, 
+    agregarProveedor, guardarProveedor,
+    AgregarProducto, guardarProducto
+}

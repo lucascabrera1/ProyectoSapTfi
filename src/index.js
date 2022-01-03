@@ -29,8 +29,6 @@ function main() {
     //Serves static files (we need it to import a css file)
     app.use(express.static('../public'));
 
-
-
     //Middlewares: funciones que se ejecutan antes de que llegan al servidor
     app.use(express.urlencoded({extended: false}))
     app.use(methodOverride('_method'))
@@ -40,38 +38,15 @@ function main() {
         saveUninitialized: true
     }))
 
-
-
-
     //variables globales
 
-
-
-
-
-
     //routes
-
     app.use(require('./Routes/index.js'))
     app.use(require('./Routes/OrdenesDeCompra.js'))
     app.use(require('./Routes/Compras.js'))
 
-
-
-
-
-
-
     //static files
     app.use(express.static(path.join(__dirname, 'public')))
-
-
-
-
-
-
-
-
 
     //server listening
     app.listen(app.get('port'), () => {
@@ -79,8 +54,3 @@ function main() {
         }
     )
 }
-
-
-
-
-

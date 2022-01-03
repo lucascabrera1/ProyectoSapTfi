@@ -1,0 +1,66 @@
+<h1>{{title}}</h1>
+<form action="display: grid;width:50%" onload="CargarSelects()">
+    <label for="">Descripción</label> <br>
+    <textarea name="descripcion" id="descripcion" cols="30" rows="10" maxlength="150"></textarea> <br> <br>
+    <label for="">Precio de Compra</label>
+    <input type= "decimal" id="preciocompra" name="precio de compra" maxlength="10"> <br> <br>
+    <label for="">Precio de Venta</label>
+    <input type="decimal" name="precio de venta" id="precioventa" maxlength="10"> <br> <br>
+    <label for="">Punto de pedido</label>
+    <input type="decimal" id="puntopedido" name="punto de pedido" maxlength="3"> <br> <br>
+    <label for="">Marca</label>
+    <select name="marca" id="marca">Marca</select> <br> <br>
+    <label for="">Proveedor</label>
+    <select name="proveedor" id="proveedor">Proveedor</select> <br> <br>
+    <label for="">Categoría</label>
+    <select name="categoria" id="categoria">Categoria</select> <br> <br>
+</form>
+
+
+
+<button onclick="confirmar()">Confimar</button>
+<button onclick="cancelar()">Cancelar</button>
+
+<script>
+    function confirmar(){
+        let data = {
+            "descripcion" = document.getElementById("descripcion").value,
+            "preciodecompra" = document.getElementById("preciocompra").value,
+            "precioventa" = document.getElementById("precioventa").value,
+            "puntopedido" = document.getElementById("puntopedido").value,
+            "marca" = document.getElementById("marca").value,
+            "proveedor" = document.getElementById("proveedor").value,
+            "categoria" = document.getElementById("categoria").value
+        }
+    
+        fetch( 'productos/save', {
+            method: 'post',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(data)
+        }).then(response => response.json())
+
+        .then(resp => {
+            alert("El producto ha sido dado de alta con el id" + resp._id)
+            setTimeout(function(){
+                window.location = './productos',
+            }, 3500)
+        })
+
+        .catch(function(error){
+            console.log("hubo un problema con la petición Fetch " + error.message)
+        })
+    }
+
+    function cancelar(){
+        window.location = './productos.hbs'
+    }
+
+    function CargarSelects(){
+        
+    }
+
+    function CargarProveedores(){
+        
+    }
+
+</script>

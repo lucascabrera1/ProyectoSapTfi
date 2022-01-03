@@ -11,10 +11,14 @@ router.get('/compras', (req, res)=>{
     res.render('./compras')
 })
 
+//proveedores
 router.get('/proveedores', coc.RecuperarProveedores)
 router.post('/proveedores/save', coc.guardarProveedor)
 router.get('/proveedores/agregar', coc.agregarProveedor)
 
+//productos
+router.get('/productos/agregar', coc.AgregarProducto)
+router.post('/productos/save', coc.guardarProducto)
 router.get('/productos', coc.RecuperarProductos)
 
 
