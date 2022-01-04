@@ -11,7 +11,7 @@
     <label for="">Marca</label>
     <select name="marca" id="marca">Marca</select> <br> <br>
     <label for="">Proveedor</label>
-    <select name="proveedor" id="proveedor">Proveedor</select> <br> <br>
+    <select name="proveedor" id="proveedor" onload="CargarProveedores()">Proveedor</select> <br> <br>
     <label for="">Categoría</label>
     <select name="categoria" id="categoria">Categoria</select> <br> <br>
 </form>
@@ -21,7 +21,7 @@
 <button onclick="confirmar()">Confimar</button>
 <button onclick="cancelar()">Cancelar</button>
 
-<script>
+<script type="text/javascript">
     function confirmar(){
         let data = {
             "descripcion" : document.getElementById("descripcion").value,
@@ -58,7 +58,7 @@
     }
 
     function cancelar(){
-        window.location = './productos.hbs'
+        window.location = "/productos";
     }
 
     function CargarSelects(){
@@ -67,10 +67,9 @@
 
     function CargarProveedores(){
         <select>
-            {{#each lista}}
-            <option>this.nombre</option>
+            {{#Each : lista}}
+                <option>{{this.descripcion}}</option>
             {{/each}}
         </select>
     }
-
 </script>
