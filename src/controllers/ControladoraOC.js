@@ -52,22 +52,17 @@ const AgregarProducto = (req, res) => {
 
 const ValidarProducto = (body) => {
     if (body.descripcion == '' || body.descripcion == null){
-        alert("La descripción del producto no puede ser nula")
-        return false
+        return "La descripción del producto no puede ser nula";
     }
     else if (body.preciodecompra == '' || body.preciodecompra == null){
-        alert("el precio de compra no puede ser nulo")
-        return false
+        return "el precio de compra no puede ser nulo";
     }
     else if (body.preciodeventa == '' || body.preciodeventa == null){
-        alert("el precio de venta no puede ser nulo")
-        return false
+        return "el precio de venta no puede ser nulo";
     }
     else if (body.puntopedido == '' || body.puntopedido == null){
-        alert("el punto de pedido no puede ser nulo")
-        return false
+        return "el punto de pedido no puede ser nulo";
     }
-    else return true
 }
 
 const guardarProducto = async (req, res) => {
@@ -84,7 +79,7 @@ const guardarProducto = async (req, res) => {
             proveedor : req.body.proveedor,
             categoria : req.body.categoria
         });
-        let prod = await producto.save
+        let prod = await producto.save()
         console.log(`se dio de alta el producto ${prod}`)
         res.status(200).send(prod)
     }
