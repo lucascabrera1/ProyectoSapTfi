@@ -46,8 +46,18 @@ const guardarProveedor = async (req, res) => {
 
 //PRODUCTO
 
-const AgregarProducto = (req, res) => {
-    res.render("./producto", {title: "Alta de Producto"})
+const AgregarProducto = async (req, res) => {
+    const proveedores = await Proveedor.find();
+    const lista = proveedores.map(prov => {return {
+        id: prov._id,
+        nombre: prov.razon_social, 
+        email: prov.email,
+        direccion : prov.direccion
+    }})
+    res.render("./producto", {
+        title: "Alta de Producto",
+        lista: lista
+    })
 }
 
 const ValidarProducto = (body) => {
