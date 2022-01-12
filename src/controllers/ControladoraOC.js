@@ -1,5 +1,6 @@
 const Proveedor = require ('../Models/Proveedores')
 const Producto = require ('../Models/Productos')
+const Categoria = require ('../Models/Categorias')
 
 //PROVEEDOR
 const agregarProveedor = (req, res) => {
@@ -15,7 +16,6 @@ const RecuperarProveedores = (req, res) => {
             email: prov.email,
             direccion : prov.direccion
         }})
-        console.log(lista);
         res.render("./proveedores", {lista : lista })
     });
 }
@@ -48,15 +48,23 @@ const guardarProveedor = async (req, res) => {
 
 const AgregarProducto = async (req, res) => {
     const proveedores = await Proveedor.find();
+    const categorias_db = await Categoria.find();
     const lista = proveedores.map(prov => {return {
         id: prov._id,
         nombre: prov.razon_social, 
         email: prov.email,
         direccion : prov.direccion
     }})
+    const categorias = categorias_db.map(cat => {
+        return {
+            id: cat._id,
+            nombre: cat.nombre
+        }
+    });
     res.render("./producto", {
         title: "Alta de Producto",
-        lista: lista
+        lista: lista,
+        categorias: categorias
     })
 }
 
@@ -96,21 +104,27 @@ const guardarProducto = async (req, res) => {
 }
 
 const RecuperarProductos = (req, res) => {
-    Producto.find(function(err, productos){
-        let lista = productos.map(prod=> {return {
-            id: prod.id,
-            descripcion: prod.descripcion,
-            preciodecompra: prod.preciodecompra,
-            preciodeventa: prod.preciodeventa,
-            puntopedido : prod.puntopedido,
-            stock: prod.stock,
-            marca: prod.marca,
-            proveedor: prod.proveedor,
-            categoria: prod.categoria
-        }})
-        console.log(lista[7])
-        res.render("./productos", {lista: lista})
-    })
+    Producto.find({})
+        .populate("proveedor")
+        .populate("categoria")
+        .then(function(productos) {
+            let lista = productos.map(prod=> {return {
+                id: prod._id,
+                descripcion: prod.descripcion,
+                preciodecompra: prod.preciodecompra,
+                preciodeventa: prod.preciodeventa,
+                puntopedido : prod.puntopedido,
+                stock: prod.stock,
+                marca: prod.marca,
+                proveedor: prod.proveedor==null?'Sin asignar':prod.proveedor.razon_social,
+                categoria: prod.categoria==null?'Sin asignar':prod.categoria.nombre
+            }})
+            res.render("./productos", {lista: lista});
+        })
+        .catch(function(err) {
+            console.log(err);
+            res.render("./productos", {lista: []});
+        });
 }
 
 
