@@ -9,7 +9,12 @@
     <label for="">Punto de pedido</label>
     <input type="decimal" id="puntopedido" name="punto de pedido" maxlength="3"> <br> <br>
     <label for="">Marca</label>
-    <select name="marca" id="marca">Marca</select> <br> <br>
+    <select name="marca" id="marca">Marca
+        <option value="", enabled = "false">Seleccione...</option>
+        {{#each marcas}}
+            <option value="{{this._id}}">{{this.nombre}}</option>
+        {{/each}}
+    </select> <br> <br>
     <label for="">Proveedor</label>
     <select name="proveedor" id="proveedor" >
         <option value="">Seleccione...</option>
@@ -18,7 +23,12 @@
         {{/each}}
     </select> <br> <br>
     <label for="">Categoría</label>
-    <select name="categoria" id="categoria">Categoria</select> <br> <br>
+    <select name="categoria" id="categoria">Categoria
+        <option value="">Seleccione...</option>
+        {{#each categorias}}
+            <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+    </select> <br> <br>
 </form>
 
 

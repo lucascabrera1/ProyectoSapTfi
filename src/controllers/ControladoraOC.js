@@ -1,5 +1,7 @@
 const Proveedor = require ('../Models/Proveedores')
 const Producto = require ('../Models/Productos')
+const Categoria = require ('../Models/Categorias')
+const Marca = require ('../Models/Marcas')
 
 //PROVEEDOR
 const agregarProveedor = (req, res) => {
@@ -54,9 +56,21 @@ const AgregarProducto = async (req, res) => {
         email: prov.email,
         direccion : prov.direccion
     }})
+    const categorias = await Categoria.find();
+    const listacategorias = categorias.map(cat => { return {
+        id: cat._id,
+        name: cat.name
+    }})
+    const marcas = await Marca.find();
+    const listamarcas = marcas.map(mar => {return {
+        id: mar._id,
+        nombre:mar.nombre
+    }})
     res.render("./producto", {
         title: "Alta de Producto",
-        lista: lista
+        lista: lista,
+        categorias: listacategorias,
+        marcas: listamarcas
     })
 }
 
