@@ -23,10 +23,17 @@
         {{/each}}
     </select> <br> <br>
     <label for="">Categoría</label>
+<<<<<<< HEAD
     <select name="categoria" id="categoria">Categoria
         <option value="">Seleccione...</option>
         {{#each categorias}}
             <option value="{{this.id}}">{{this.name}}</option>
+=======
+    <select name="categoria" id="categoria">
+        <option value="">Seleccione...</option>
+        {{#each categorias}}
+            <option value="{{this.id}}">{{this.nombre}}</option>
+>>>>>>> 54a0bbc554511fd475ab21514063c3f98d44d4ab
         {{/each}}
     </select> <br> <br>
 </form>
@@ -44,8 +51,8 @@
             "preciodeventa" : document.getElementById("precioventa").value,
             "puntopedido" : document.getElementById("puntopedido").value,
             "marca" : document.getElementById("marca").value,
-            "proveedor" : document.getElementById("proveedor").value,
-            "categoria" : document.getElementById("categoria").value
+            "proveedor" : document.getElementById("proveedor").value==''?null:document.getElementById("proveedor").value,
+            "categoria" : document.getElementById("categoria").value==''?null:document.getElementById("categoria").value
         }
     
         fetch( '/productos/save', {
