@@ -1,10 +1,7 @@
 const Proveedor = require ('../Models/Proveedores')
 const Producto = require ('../Models/Productos')
 const Categoria = require ('../Models/Categorias')
-<<<<<<< HEAD
 const Marca = require ('../Models/Marcas')
-=======
->>>>>>> 54a0bbc554511fd475ab21514063c3f98d44d4ab
 
 //PROVEEDOR
 const agregarProveedor = (req, res) => {
@@ -59,7 +56,6 @@ const AgregarProducto = async (req, res) => {
         email: prov.email,
         direccion : prov.direccion
     }})
-<<<<<<< HEAD
     const categorias = await Categoria.find();
     const listacategorias = categorias.map(cat => { return {
         id: cat._id,
@@ -75,18 +71,6 @@ const AgregarProducto = async (req, res) => {
         lista: lista,
         categorias: listacategorias,
         marcas: listamarcas
-=======
-    const categorias = categorias_db.map(cat => {
-        return {
-            id: cat._id,
-            nombre: cat.nombre
-        }
-    });
-    res.render("./producto", {
-        title: "Alta de Producto",
-        lista: lista,
-        categorias: categorias
->>>>>>> 54a0bbc554511fd475ab21514063c3f98d44d4ab
     })
 }
 
