@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const CategoriasSchema = new Schema({
-    _id:{type: String, required: true},
+    _id:{type: mongoose.SchemaTypes.ObjectId, required: true},
     name:{type: String, required: true}
 })
 

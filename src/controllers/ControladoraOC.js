@@ -87,6 +87,15 @@ const ValidarProducto = (body) => {
     else if (body.puntopedido == '' || body.puntopedido == null){
         return "el punto de pedido no puede ser nulo";
     }
+    else if (body.marca == '' || body.marca == null){
+        return "debe seleccionar una marca";
+    }
+    else if (body.categoria == '' || body.categoria == null){
+        return "debe seleccionar una categoría";
+    }
+    else if (body.proveedor == '' || body.proveedor == null){
+        return "debe seleccionar un proveedor";
+    }
 }
 
 const guardarProducto = async (req, res) => {
@@ -99,9 +108,9 @@ const guardarProducto = async (req, res) => {
             preciodecompra : req.body.preciodecompra,
             preciodeventa : req.body.preciodeventa,
             puntopedido : req.body.puntopedido,
-            marca : req.body.marca,
-            proveedor : req.body.proveedor,
-            categoria : req.body.categoria
+            marca : req.body.marca!=""?req.body.marca:null,
+            proveedor : req.body.proveedor!=""?req.body.proveedor:null,
+            categoria : req.body.categoria!=""?req.body.categoria:null
         });
         let prod = await producto.save()
         console.log(`se dio de alta el producto ${prod}`)
@@ -124,7 +133,7 @@ const RecuperarProductos = (req, res) => {
                 stock: prod.stock,
                 marca: prod.marca==null?'Sin asignar': prod.marca.nombre,
                 proveedor: prod.proveedor==null?'Sin asignar':prod.proveedor.razon_social,
-                categoria: prod.categoria==null?'Sin asignar':prod.categoria.nombre
+                categoria: prod.categoria==null?'Sin asignar':prod.categoria.name
             }})
             res.render("./productos", {lista: lista});
         })
