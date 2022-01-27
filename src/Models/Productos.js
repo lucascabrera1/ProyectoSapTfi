@@ -12,7 +12,10 @@ var productosSchema = new Schema ({
     preciodeventa: {type: Number},
     puntopedido: {type: Number},
     stock: {type: Number},
-    marca: {type: String},
+    marca: {
+        type: Schema.Types.ObjectId,
+        ref: 'marcas'
+    },
     proveedor: {
         type: Schema.Types.ObjectId,
         ref: 'proveedores'

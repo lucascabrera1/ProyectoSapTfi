@@ -113,6 +113,7 @@ const RecuperarProductos = (req, res) => {
     Producto.find({})
         .populate("proveedor")
         .populate("categoria")
+        .populate("marca")
         .then(function(productos) {
             let lista = productos.map(prod=> {return {
                 id: prod._id,
@@ -121,7 +122,7 @@ const RecuperarProductos = (req, res) => {
                 preciodeventa: prod.preciodeventa,
                 puntopedido : prod.puntopedido,
                 stock: prod.stock,
-                marca: prod.marca,
+                marca: prod.marca==null?'Sin asignar': prod.marca.nombre,
                 proveedor: prod.proveedor==null?'Sin asignar':prod.proveedor.razon_social,
                 categoria: prod.categoria==null?'Sin asignar':prod.categoria.nombre
             }})

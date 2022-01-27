@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 var proveedoresSchema = new Schema({
+    _id: {type: String, required: true},
     razon_social: {type: String, required: true},
     direccion: {type: String},
     email: {type: String}
