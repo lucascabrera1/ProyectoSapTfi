@@ -47,7 +47,32 @@ const guardarProveedor = async (req, res) => {
 
 //PRODUCTO
 
-const AgregarProducto = async (req, res) => {
+const EditarProducto = async (req, res) => {
+    const id = req.query.id;
+    const producto_db = await Producto.findById(id);
+    //if (producto_db!=null) {
+        const producto = {
+            id: producto_db._id,
+            descripcion: producto_db.descripcion,
+            preciodecompra: producto_db.preciodecompra,
+            preciodeventa: producto_db.preciodeventa,
+            puntopedido: producto_db.puntopedido,
+            marca: producto_db.marca,
+            proveedor: producto_db.proveedor,
+            categoria: producto_db.categoria
+        }
+        const listas = await ListasAsociadasProducto();
+        res.render("./producto", {
+            title: "Edición de Producto",
+            producto: producto,
+            lista: listas.proveedores,
+            categorias: listas.categorias,
+            marcas: listas.marcas
+        })
+    //}
+}
+
+const ListasAsociadasProducto = async () => {
     const proveedores = await Proveedor.find();
     const categorias_db = await Categoria.find();
     const lista = proveedores.map(prov => {return {
@@ -66,11 +91,24 @@ const AgregarProducto = async (req, res) => {
         id: mar._id,
         nombre:mar.nombre
     }})
+    return {
+        marcas: listamarcas,
+        proveedores: lista,
+        categorias: listacategorias
+    }
+}
+
+const AgregarProducto = async (req, res) => {
+    const listas = await ListasAsociadasProducto();
+    const producto = {
+        descripcion:""
+    }
     res.render("./producto", {
         title: "Alta de Producto",
-        lista: lista,
-        categorias: listacategorias,
-        marcas: listamarcas
+        producto: producto,
+        lista: listas.proveedores,
+        categorias: listas.categorias,
+        marcas: listas.marcas
     })
 }
 
@@ -103,17 +141,30 @@ const guardarProducto = async (req, res) => {
     if (msg){
         res.status(400).send(msg)
     }else{
-        let producto = new Producto({
-            descripcion : req.body.descripcion,
-            preciodecompra : req.body.preciodecompra,
-            preciodeventa : req.body.preciodeventa,
-            puntopedido : req.body.puntopedido,
-            marca : req.body.marca!=""?req.body.marca:null,
-            proveedor : req.body.proveedor!=""?req.body.proveedor:null,
-            categoria : req.body.categoria!=""?req.body.categoria:null
-        });
+        let producto;
+        let id = req.body.id;
+        if (id!=null && id!='') {
+            producto = await Producto.findById(id);
+            producto.descripcion = req.body.descripcion;
+            producto.preciodecompra = req.body.preciodecompra;
+            producto.preciodeventa = req.body.preciodeventa;
+            producto.puntopedido = req.body.puntopedido;
+            producto.marca = req.body.marca!=""?req.body.marca:null;
+            producto.proveedor = req.body.proveedor!=""?req.body.proveedor:null;
+            producto.categoria = req.body.categoria!=""?req.body.categoria:null;
+        } else {
+            producto = new Producto({
+                descripcion : req.body.descripcion,
+                preciodecompra : req.body.preciodecompra,
+                preciodeventa : req.body.preciodeventa,
+                puntopedido : req.body.puntopedido,
+                marca : req.body.marca!=""?req.body.marca:null,
+                proveedor : req.body.proveedor!=""?req.body.proveedor:null,
+                categoria : req.body.categoria!=""?req.body.categoria:null
+            });
+        }
         let prod = await producto.save()
-        console.log(`se dio de alta el producto ${prod}`)
+        console.log(`se dio de alta o actualizó el producto ${prod}`)
         res.status(200).send(prod)
     }
 }
@@ -146,5 +197,6 @@ const RecuperarProductos = (req, res) => {
 
 module.exports = {RecuperarProveedores, RecuperarProductos, 
     agregarProveedor, guardarProveedor,
-    AgregarProducto, guardarProducto
+    AgregarProducto, guardarProducto,
+    EditarProducto
 }

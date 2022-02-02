@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const methodOverride = require ('method-override')
 const bodyParser = require("body-parser")
 const session = require ('express-session')
+const helpers = require('./helpers')
 //initializing
 
 const app = express()
@@ -23,7 +24,8 @@ function main() {
         defaultLayout: "index",
         layoutsDir: path.join(app.get('views'), "layouts"),
         partialsDir: path.join(app.get('views'), "partials"),
-        extname: '.hbs'
+        extname: '.hbs',
+        helpers: helpers
     }))
     app.set('view engine', '.hbs')
     //Serves static files (we need it to import a css file)

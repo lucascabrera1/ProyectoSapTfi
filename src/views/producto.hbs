@@ -1,19 +1,24 @@
 <h1>{{title}}</h1>
 <form action="display: grid;width:50%" onload="CargarSelects()">
+    <input type="hidden" id="id" value="{{producto.id}}" >
     <label for="">Descripción</label> <br>
-    <textarea name="descripcion" id="descripcion" cols="30" rows="10" maxlength="150"></textarea> <br> <br>
+    <textarea name="descripcion" id="descripcion" cols="30" rows="10" maxlength="150">{{producto.descripcion}}</textarea> <br> <br>
     <label for="">Precio de Compra</label>
-    <input type= "decimal" id="preciocompra" name="precio de compra" maxlength="10"> <br> <br>
+    <input type= "decimal" id="preciocompra" name="precio de compra" maxlength="10" value="{{producto.preciodecompra}}"> <br> <br>
     <label for="">Precio de Venta</label>
-    <input type="decimal" name="precio de venta" id="precioventa" maxlength="10"> <br> <br>
+    <input type="decimal" name="precio de venta" id="precioventa" maxlength="10" value="{{producto.preciodeventa}}"> <br> <br>
     <label for="">Punto de pedido</label>
-    <input type="decimal" id="puntopedido" name="punto de pedido" maxlength="3"> <br> <br>
+    <input type="decimal" id="puntopedido" name="punto de pedido" maxlength="3" value="{{producto.puntopedido}}"> <br> <br>
     
     <label for="">Marca</label>
-    <select name="marca" id="marca">Marca
-        <option value="", enabled = >Seleccione...</option>
+    <select name="marca" id="marca" >Marca
+        <option value="">Seleccione...</option>
         {{#each marcas}}
+            {{#if (objectIdIsEqual this.id ../producto.marca)}}
+            <option value="{{this.id}}" selected="selected">{{this.nombre}}</option>
+            {{else}}
             <option value="{{this.id}}">{{this.nombre}}</option>
+            {{/if}}
         {{/each}}
     </select> <br> <br>
     
@@ -21,7 +26,11 @@
     <select name="proveedor" id="proveedor" >
         <option value="">Seleccione...</option>
         {{#each lista}}
+            {{#if (objectIdIsEqual this.id ../producto.proveedor)}}
+            <option value="{{this.id}}" selected="selected">{{this.nombre}}</option>
+            {{else}}
             <option value="{{this.id}}">{{this.nombre}}</option>
+            {{/if}}
         {{/each}}
     </select> <br> <br>
     
@@ -29,7 +38,11 @@
     <select name="categoria" id="categoria">Categoria
         <option value="">Seleccione...</option>
         {{#each categorias}}
+            {{#if (objectIdIsEqual this.id ../producto.categoria)}}
+            <option value="{{this.id}}" selected="selected">{{this.name}}</option>
+            {{else}}
             <option value="{{this.id}}">{{this.name}}</option>
+            {{/if}}
         {{/each}}
     </select> <br> <br>
 </form>
@@ -42,6 +55,7 @@
 <script type="text/javascript">
     function confirmar(){
         let data = {
+            "id": document.getElementById("id").value,
             "descripcion" : document.getElementById("descripcion").value,
             "preciodecompra" : document.getElementById("preciocompra").value,
             "preciodeventa" : document.getElementById("precioventa").value,
@@ -64,7 +78,7 @@
         })
 
         .then(resp => {
-            alert("El producto ha sido dado de alta con el id" + resp._id)
+            alert("El producto ha sido guardado.")
             setTimeout(function(){
                 window.location = '/productos';
             }, 3500)

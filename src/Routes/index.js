@@ -18,6 +18,7 @@ router.get('/proveedores/agregar', coc.agregarProveedor)
 
 //productos
 router.get('/productos/agregar', coc.AgregarProducto)
+router.get('/productos/editar', coc.EditarProducto)
 router.post('/productos/save', coc.guardarProducto)
 router.get('/productos', coc.RecuperarProductos)
 

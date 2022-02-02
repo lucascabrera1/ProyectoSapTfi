@@ -7,7 +7,6 @@ const Proveedor = require('../Models/Proveedores.js')
 router.get('/', async (req, res) => {
     try{
         const arrayProveedoresDB = await Proveedor.find()
-        console.log(arrayProveedoresDB)
         res.render('proveedores', {
             arrayProveedores: arrayProveedoresDB
         })

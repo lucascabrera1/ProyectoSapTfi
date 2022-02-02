@@ -10,6 +10,7 @@
   <td class="primer">Marca</td>
   <td class="primer">Categoría</td>
   <td class="primer">Proveedor Designado</td>
+  <td class="primer">Acciones</td>
     {{#each lista}}
       <tr>
         <td>{{this.id}}</td>
@@ -21,6 +22,10 @@
         <td>{{this.marca}}</td>
         <td>{{this.categoria}}</td>
         <td>{{this.proveedor}}</td>
+        <td>
+          <button onclick="editar('{{this.id}}');">Modificar</button>
+          <button onclick="eliminar('{{this.id}}');">Eliminar</button>
+        </td>
       </tr>
     {{/each}}
 </table>
@@ -28,7 +33,11 @@
   function agregar(){
     window.location = "productos/agregar"
   }
+  function editar(id) {
+    window.location = "productos/editar?id="+id;
+  }
+  function eliminar(id) {
+    console.log(id);
+  }
 </script>
 <button onclick="agregar();">Agregar</button>
-<button onclick="">Modificar</button>
-<button onclick="">Eliminar</button>
